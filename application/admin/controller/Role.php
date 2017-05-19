@@ -1,12 +1,51 @@
 <?php
+// +----------------------------------------------------------------------
+// | 名称：Role.php
+// +----------------------------------------------------------------------
+// | 描述：角色分组管理 一个角色对应多个权限规则
+// +----------------------------------------------------------------------
+// | 作者：豆豆
+// +----------------------------------------------------------------------
+// | 时间：2017-05-19 16:26
+// +----------------------------------------------------------------------
 namespace app\admin\controller;
 
 use app\admin\controller\Base;
+use think\Db;
+use think\Request;
 
 class Role extends Base
 {
+	/**
+	 * [index 角色列表]
+	 * @return [array] [角色列表]
+	 */
     public function index()
     {
+    	$roles = Db::table('auth_group')->select();
+    	$this->assign('roles',$roles);
+        return view();
+    }
+
+    public function add()
+    {
+    	if (Request::instance()->isAjax()) {
+            $input = input('post.');
+            $res   = ['errno' => 0, 'message' => '添加失败'];
+
+            if (in_array('', $input)) {
+                $res = ['errno' => 0, 'message' => '请填写所有数据'];
+                return $res;
+            }
+            if (Db::table('auth_group')->where('title',$input['title'])->find()) {
+                $res = ['errno' => 0, 'message' => '已有当前角色'];
+                return $res;
+            }
+            if (Db::table('auth_group')->insert($input)) {
+                $res = ['errno' => 1, 'message' => '添加角色成功'];
+                return $res;
+            }
+        }
         return view();
     }
 }
