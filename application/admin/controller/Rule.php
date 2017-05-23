@@ -48,6 +48,7 @@ class Rule extends Base
                 $res = ['errno' => 1, 'message' => '添加权限规则成功'];
                 return $res;
             }
+            return $res;
         }
         return view();
     }
@@ -70,6 +71,7 @@ class Rule extends Base
                 $res = ['errno' => 1, 'message' => '删除规则成功'];
                 return $res;
             }
+            return $res;
         }
         return 0;
     }
@@ -104,6 +106,7 @@ class Rule extends Base
                 $res = ['errno' => 1, 'message' => '修改权限规则成功'];
                 return $res;
             }
+            return $res;
         }
         return view();
     }

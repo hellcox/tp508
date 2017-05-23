@@ -1,0 +1,80 @@
+{include file="public:a_header"/}
+<article class="cl pd-20">
+<form action="" method="post">
+    <div class="form form-horizontal" id="form-member-add">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">角色名称：</label>
+            <div class="formControls col-xs-7 col-sm-8 pd-5" style="padding-left: 15px;">{$role.title}</div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">角色权限：</label>
+            <div class="formControls col-xs-7 col-sm-8">
+                <dl class="permission-list">
+                    <dt>
+                        <label>
+                            <!-- <input type="checkbox" value="" name="user-Character-0" id="user-Character-1" class="valid"> 用户中心 -->
+                        </label>
+                    </dt>
+                    <dd>
+                        <dl class="cl permission-list2">
+                            <!-- <dt>
+                                <label class="">
+                                    <input type="checkbox" value="" name="user-Character-1-0" id="user-Character-1-0"> 用户管理
+                                </label>
+                            </dt> -->
+                            <dd style="margin-left: 0">
+                                {volist name="rules" id="vo"}
+                                {php}
+                                    $ck = '';
+                                    if(in_array($vo['id'],$role['rules'])){
+                                        $ck = 'checked';
+                                    }
+                                {/php}
+                                <label class="" style="width: 130px;display: block;float: left;">
+                                    <input type="checkbox" value="{$vo.id}" name="rules[]" {php}echo $ck;{/php}> {$vo.title}
+                                </label>
+                                {/volist}
+                            </dd>
+                        </dl>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </div>
+</form>
+</article>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+function role_edit(url) {
+    var title = $("#title").val();
+    var id = $("#roleID").val();
+    $.ajax({
+        type: 'post',
+        url: url,
+        data: {
+            title: title,
+            id: id
+        },
+        success: function(res) {
+            if (res.errno == 1) {
+                layer.msg(res.message, {
+                    time: 1000
+                }, function() {
+                    window.parent.location.reload();
+                });
+            } else {
+                layer.msg(res.message, {
+                    time: 1500
+                });
+            }
+        }
+    });
+}
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+{include file="public:footer"/}

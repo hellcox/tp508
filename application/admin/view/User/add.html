@@ -2,21 +2,26 @@
 <article class="cl pd-20">
     <div class="form form-horizontal" id="form-member-add">
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色名称：</label>
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="{$role.title}" placeholder="规则名称" id="title" name="title">
+                <input type="text" class="input-text" value="" id="user_name" name="user_name">
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"></label>
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <span class="c-red">注：当前仅修改角色名，并没分配权限，到权限列表添加相关权限</span>
+                <input type="text" class="input-text" value="" id="password" name="password">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" id="rpassword" name="rpassword">
             </div>
         </div>
         <div class="row cl">
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-                <input type="hidden" id="roleID" value="{$role.id}">
-                <input class="btn btn-primary radius" onclick="role_edit('{:url('role/edit')}')" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                <input class="btn btn-primary radius" onclick="rule_add('{:url('user/add')}')" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
             </div>
         </div>
     </div>
@@ -27,13 +32,14 @@
 <script type="text/javascript" src="__LIB__/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="__LIB__/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
-function role_edit(url) {
-    var title = $("#title").val();
-    var id = $("#roleID").val();
+function rule_add(url) {
+    var user_name = $("#user_name").val();
+    var password = $("#password").val();
+    var rpassword = $("#rpassword").val();
     $.ajax({
     	type: 'post',
     	url: url,
-    	data: {title:title,id:id},
+    	data: {user_name:user_name,password:password,rpassword:rpassword},
     	success: function(res){
     		if(res.errno==1){
     			layer.msg(res.message,{time:1000},function(){

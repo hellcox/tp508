@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-05-19 16:51:09
+Date: 2017-05-23 14:16:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,12 +25,13 @@ CREATE TABLE `auth_group` (
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `rules` char(80) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_group
 -- ----------------------------
-INSERT INTO `auth_group` VALUES ('1', '超级管理员', '1', '1,,2,3,4,5,6,7,8,9,10,11,12,13');
+INSERT INTO `auth_group` VALUES ('1', '超级管理员', '1', '1,6,7,5,10');
+INSERT INTO `auth_group` VALUES ('3', '普通管理员', '1', '1,3');
 
 -- ----------------------------
 -- Table structure for auth_group_access
@@ -48,6 +49,9 @@ CREATE TABLE `auth_group_access` (
 -- Records of auth_group_access
 -- ----------------------------
 INSERT INTO `auth_group_access` VALUES ('1', '1');
+INSERT INTO `auth_group_access` VALUES ('2', '1');
+INSERT INTO `auth_group_access` VALUES ('4', '1');
+INSERT INTO `auth_group_access` VALUES ('5', '3');
 
 -- ----------------------------
 -- Table structure for auth_rule
@@ -62,7 +66,7 @@ CREATE TABLE `auth_rule` (
   `condition` char(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_rule
@@ -84,9 +88,15 @@ CREATE TABLE `user` (
   `user_name` char(16) NOT NULL COMMENT '用户名',
   `password` char(32) NOT NULL COMMENT '密码',
   `reg_time` int(10) unsigned NOT NULL COMMENT '注册时间',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES ('1', 'admin', 'qweasd', '0', '1');
+INSERT INTO `user` VALUES ('2', 'test', 'qweasd', '0', '1');
+INSERT INTO `user` VALUES ('4', 'test1', 'qweasd', '0', '0');
+INSERT INTO `user` VALUES ('5', '1', '1', '0', '1');
+INSERT INTO `user` VALUES ('6', '2', '1', '0', '1');
