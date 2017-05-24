@@ -10,3 +10,8 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+
+function get_password($password)
+{
+	return md5('doudou'.$password.'ser');
+}
